@@ -110,6 +110,9 @@ describe("sticky ref", function()
 
             -- Confirm it differs from the parent-based diff
             local parent_seq = tree.nodes[target].parent
+            if not parent_seq then
+                error("target node has no parent")
+            end
             local parent_diff = diff.get_diff(diff.get_context_by_seq(buf, parent_seq), diff.get_context_by_seq(buf, target))
             assert.are_not.same(parent_diff, actual)
         end)

@@ -94,7 +94,7 @@ describe("undo / redo", function()
         local ok, err = pcall(function()
             vim.o.lines = 41
             vim.o.columns = 120
-            atone.setup({ diff_cur_node = { enabled = true, width = 40, split_percent = 0.3 } })
+            atone.setup({ diff_cur_node = { enabled = true, width = 40, height = 7 } })
 
             api.nvim_buf_call(buf, function()
                 core.open()
@@ -107,6 +107,7 @@ describe("undo / redo", function()
                 local second_dummy_height = api.nvim_win_get_height(core._dummy_win)
                 local second_diff_config = api.nvim_win_get_config(core._diff_win)
 
+                assert.are.equal(7, first_dummy_height)
                 assert.are.equal(first_dummy_height, second_dummy_height)
                 assert.are.equal(first_dummy_height, first_diff_config.height)
                 assert.are.equal(second_dummy_height, second_diff_config.height)

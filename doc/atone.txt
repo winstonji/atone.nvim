@@ -104,8 +104,9 @@ Here are the default options:
         -- shown under the tree graph
         diff_cur_node = {
             enabled = true,
-            --- The diff window's height is set to a specified percentage of the original (namely tree graph) window's height.
-            split_percent = 0.3,
+            --- float < 1: percentage of the tree graph window height
+            --- integer >= 1: absolute row count
+            height = 0.3,
             ---@type "adaptive"|number
             --- adaptive: same width as tree window (default)
             --- float < 1: width = vim.o.columns * value
