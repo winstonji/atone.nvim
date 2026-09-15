@@ -2,6 +2,7 @@
 
 ---@alias AtoneWindowDirection "left"|"right"
 ---@alias AtoneWindowSize "adaptive"|number
+---@alias AtoneDiffCurNodeWidth "adaptive"|"full"|number
 ---@alias AtoneKeymap string|string[]
 ---@alias AtoneNodeLabelChunk [string, string]
 ---@alias AtoneNodeLabel string|AtoneNodeLabelChunk[]
@@ -48,12 +49,13 @@
 
 ---@class AtoneLayoutConfig
 ---@field direction? AtoneWindowDirection
+---@field localized? boolean Whether to scope the tree and diff layout to the window that opened Atone.
 ---@field width? AtoneWindowSize
 
 ---@class AtoneDiffCurNodeConfig
 ---@field enabled? boolean
----@field split_percent? number
----@field width? AtoneWindowSize
+---@field height? number Fraction of the base window height when below 1; otherwise an absolute row count.
+---@field width? AtoneDiffCurNodeWidth
 ---@field treesitter? boolean
 ---@field inline_diff? boolean
 
@@ -131,5 +133,56 @@
 ---@field marks? AtoneMarksConfig
 ---@field keymaps? AtoneKeymapsConfig
 ---@field ui? AtoneUIConfig
+
+---@class AtoneResolvedLayoutConfig
+---@field direction AtoneWindowDirection
+---@field localized boolean
+---@field width AtoneWindowSize
+
+---@class AtoneResolvedDiffCurNodeConfig
+---@field enabled boolean
+---@field height number Fraction of the base window height when below 1; otherwise an absolute row count.
+---@field width AtoneDiffCurNodeWidth
+---@field treesitter boolean
+---@field inline_diff boolean
+
+---@class AtoneResolvedDiffFloatConfig
+---@field width number
+---@field height number
+---@field autoclose boolean
+
+---@class AtoneResolvedAutoAttachConfig
+---@field enabled boolean
+---@field excluded_ft string[]
+
+---@class AtoneResolvedMarksConfig
+---@field persist boolean
+---@field persist_path string
+---@field finders string[]
+
+---@class AtoneResolvedKeymapsConfig
+---@field tree AtoneTreeKeymapsConfig
+---@field auto_diff AtoneAutoDiffKeymapsConfig
+---@field help AtoneHelpKeymapsConfig
+
+---@class AtoneResolvedNodeLabelConfig
+---@field custom boolean
+---@field formatter fun(ctx: AtoneNodeLabelContext): AtoneNodeLabel
+---@field extmark_opts table
+
+---@class AtoneResolvedUIConfig
+---@field border string
+---@field compact boolean
+---@field branch_symbols boolean|"auto"
+---@field node_label AtoneResolvedNodeLabelConfig
+
+---@class AtoneResolvedConfig
+---@field layout AtoneResolvedLayoutConfig
+---@field diff_cur_node AtoneResolvedDiffCurNodeConfig
+---@field diff_float AtoneResolvedDiffFloatConfig
+---@field auto_attach AtoneResolvedAutoAttachConfig
+---@field marks AtoneResolvedMarksConfig
+---@field keymaps AtoneResolvedKeymapsConfig
+---@field ui AtoneResolvedUIConfig
 
 return {}

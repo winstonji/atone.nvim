@@ -1,23 +1,30 @@
+---@class AtoneConfigModule
+---@field opts AtoneResolvedConfig
 local M = {}
----@type AtoneConfig
+
 M.opts = {
     layout = {
         direction = "left",
         --- adaptive: adapt to width of tree graph
-        --- float < 1: width = vim.o.columns * value
+        --- float < 1: width = invoking-window width * value when localized, otherwise vim.o.columns * value
         --- integer >= 1: absolute width
         width = 0.25,
+        --- Keep the tree, diff, and source buffer within the window that opened Atone.
+        --- When false, place the tree at the tab-page edge and equalize other windows.
+        localized = false,
     },
     -- diff for the node under cursor
     -- shown under the tree graph
     diff_cur_node = {
         enabled = true,
-        --- The diff window's height is set to a specified percentage of the original (namely tree graph) window's height.
-        split_percent = 0.3,
+        --- float < 1: percentage of the tree graph window height
+        --- integer >= 1: absolute row count
+        height = 0.3,
         --- adaptive: same width as tree window (default)
+        --- full: diff sits underneath and matches the invoking buffer width
         --- float < 1: width = vim.o.columns * value
-        --- integer >= 1: absolute width
-        --- Note that non-adaptive values create a float diff window anchored to a hidden
+        --- integer >= 1: absolute column count
+        --- Note that numeric values create a float diff window anchored to a hidden
         --- dummy split window. this is an implementation detail that may cause
         --- unexpected edge-case bugs in certain window layouts.
         width = "adaptive",
